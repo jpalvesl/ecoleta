@@ -1,3 +1,8 @@
+# Ignored by me
+# sqlite database
+*.sqlite
+
+
 
 # Created by https://www.gitignore.io/api/node,react,reactnative
 # Edit at https://www.gitignore.io/?templates=node,react,reactnative
