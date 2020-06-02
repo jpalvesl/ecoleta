@@ -1,20 +1,17 @@
 import { Router } from 'express';
-import knex from './database/connection';
+
+import PointsContoller from './controllers/PointsController';
+import ItemsController from './controllers/ItemsController';
 
 const routes = Router()
+const pointsContoller = new PointsContoller()
+const itemsController = new ItemsController()
 
-routes.get('/items', async(req, res) => {
-  const items = await knex('items').select('*')
+routes.get('/items', itemsController.index)
 
-  const serializedItems = items.map(item => {
-    return {
-      title: item.title,
-      image_url: `https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-us02.gitpod.io/uploads/${item.image}`
-    }
-  })
+routes.post('/points', pointsContoller.create)
+routes.get('/points/', pointsContoller.index)
+routes.get('/points/:id', pointsContoller.show)
 
-
-  return res.json(serializedItems)
-})
 
 export default routes;
