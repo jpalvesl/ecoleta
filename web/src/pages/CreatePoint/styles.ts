@@ -69,6 +69,13 @@ export const Form = styled.form`
     }
   }
 
+  .leaflet-container { /* classe presente do proprio Map */
+    width: 100%;
+    height: 350px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+
   button {
     width: 260px;
     height: 56px;
@@ -161,13 +168,6 @@ export const FieldCheck = styled.div`
   label {
     margin: 0 0 0 8px;
   }
-`;
-
-export const LeafLetContainer = styled.div`
-  width: 100%;
-  height: 350px;
-  border-radius: 8px;
-  margin-bottom: 24px;
 `;
 
 export const ItemsGrid = styled.ul`
