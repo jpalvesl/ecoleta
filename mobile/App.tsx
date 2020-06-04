@@ -4,7 +4,7 @@ import { AppLoading } from 'expo';
 import { Roboto_400Regular ,Roboto_500Medium, useFonts } from '@expo-google-fonts/roboto';
 import { Ubuntu_700Bold } from '@expo-google-fonts/ubuntu';
 
-import Home from './src/pages/Home';
+import Navigation from './src/navigation';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,7 +24,7 @@ export default function App() {
         backgroundColor="transparent" 
         translucent
       />
-      <Home />
+      <Navigation />
     </>
   );
 }

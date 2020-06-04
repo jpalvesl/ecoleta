@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 
 import { 
@@ -20,6 +21,12 @@ const logo = require('../../assets/logo.png');
 const background = require('../../assets/home-background.png');
 
 const Home = () => {
+  const navigation = useNavigation();
+
+  function handleNavigateToPoints() {
+    navigation.navigate('points')
+  }
+
   return (
     <Container 
       source={background}
@@ -32,7 +39,7 @@ const Home = () => {
       </Main>
 
       <Footer>
-        <Button onPress={() => {}}>
+        <Button onPress={handleNavigateToPoints}>
           <ButtonIcon>
             <Feather name="arrow-right" color="#fff" size={24} />
           </ButtonIcon>
