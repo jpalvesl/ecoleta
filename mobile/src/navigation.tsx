@@ -13,7 +13,7 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="points" 
+        initialRouteName="home" 
         headerMode="none" 
         screenOptions={{
           cardStyle: {

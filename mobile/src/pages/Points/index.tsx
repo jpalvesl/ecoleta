@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { SvgUri } from 'react-native-svg';
 
 import { 
+  Wrapper,
   Container,
   Button, 
   Title,
@@ -31,7 +32,7 @@ const Points = () => {
   }
 
   return (
-    <>
+    <Wrapper>
       <Container>
         <Button onPress={handleNavigateBack}>
           <Feather name="arrow-left" color="#34cb79" size={20}/>
@@ -99,7 +100,7 @@ const Points = () => {
           </Item>
         </ItemsWrapper>
       </ItemsContainer>
-    </>
+    </Wrapper>
   )
 }
 

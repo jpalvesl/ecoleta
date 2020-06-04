@@ -8,13 +8,10 @@ import {
   Main,
   Title,
   Description,
-
   Footer,
   Button,
   ButtonIcon,
   ButtonText,
-
-
 } from './styles';
 
 const logo = require('../../assets/logo.png');

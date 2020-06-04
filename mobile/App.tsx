@@ -21,8 +21,7 @@ export default function App() {
     <>
       <StatusBar 
         barStyle="light-content" 
-        backgroundColor="transparent" 
-        translucent
+        backgroundColor="#000" 
       />
       <Navigation />
     </>

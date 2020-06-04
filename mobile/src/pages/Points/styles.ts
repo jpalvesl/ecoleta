@@ -1,11 +1,14 @@
 import styled from 'styled-components/native';
-import Constants from 'expo-constants';
 import MapView, { Marker } from 'react-native-maps';
+
+export const Wrapper = styled.SafeAreaView`
+  flex: 1;
+`;
 
 export const Container = styled.View`
   flex: 1;
   padding: 0 32px;
-  padding-top: ${20 + Constants.statusBarHeight}px;
+  padding-top: 20px;
 `;
 
 export const Button = styled.TouchableOpacity``;
