@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { SvgUri } from 'react-native-svg';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
+import * as Location from 'expo-location';
 
 import { 
   Wrapper,
@@ -30,15 +31,58 @@ interface Item {
   image_url: string;
 }
 
+interface Point {
+  id: number;
+  image: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+}
+
 const Points = () => {
   const [items, setItems] = useState<Item[]>([])
+  const [points, setPoints] = useState<Point[]>([])
   const [selectedItems, setSelectedItems] = useState<number[]>([])
+
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([0,0])
 
   const navigation = useNavigation();
 
   useEffect(() => {
+    async function loadPosition() {
+      const { status } = await Location.requestPermissionsAsync()
+
+      if (status !== "granted") {
+        Alert.alert('Ooops', 'Precisamos de sua permissão para obter a localização')
+        
+        return;
+      } 
+
+      const location = await Location.getCurrentPositionAsync()
+
+      const { latitude, longitude } = location.coords
+      setInitialPosition([latitude, longitude])
+    }
+
+    loadPosition()
+  }, [])
+
+  useEffect(() => {
     api.get('/items').then(response => {
       setItems(response.data)
+    })
+  }, [])
+
+  useEffect(() => {
+    api.get('points', {
+      params: {
+        city: 'Campina Grande',
+        uf: 'PB',
+        items: [1]
+
+      }
+    }).then(response => {
+      setPoints(response.data)
     })
   }, [])
 
@@ -73,28 +117,32 @@ const Points = () => {
         <Description>Encontre no mapa um ponto de coleta</Description>
 
         <MapContainer>
-          <Map initialRegion={{
-            latitude: -7.2489341,
-            longitude: -35.9165846,
-            latitudeDelta: 0.014,
-            longitudeDelta: 0.014,
-            }}
-          >
-          
-          <MapMarker
-            onPress={handleNavigateToDetail}
-            coordinate={{
-              latitude: -7.2489341,
-              longitude: -35.9165846,
-            }}
-          >
-
-            <MapMarkerContainer>
-              <MapMarkerTitle>Mercado</MapMarkerTitle>
-              <MapMarkerImage source={{ uri: 'https://avatars3.githubusercontent.com/u/47665775?s=460&u=e4062bf713af7ec7b12c42ced5efcd3b73584fcb&v=4' }}/>
-            </MapMarkerContainer>
-          </MapMarker>
+          {initialPosition[0] !== 0 && (
+            <Map initialRegion={{
+              latitude: initialPosition[0],
+              longitude: initialPosition[1],
+              latitudeDelta: 0.014,
+              longitudeDelta: 0.014,
+              }}
+            >
+            
+            {points.map(point => (
+              <MapMarker key={String(point.id)}
+                onPress={handleNavigateToDetail}
+                coordinate={{
+                  latitude: point.latitude,
+                  longitude: point.longitude,
+                }}
+              >
+                <MapMarkerContainer>
+                  <MapMarkerTitle>{point.name}</MapMarkerTitle>
+                  <MapMarkerImage source={{ uri: 'https://avatars3.githubusercontent.com/u/47665775?s=460&u=e4062bf713af7ec7b12c42ced5efcd3b73584fcb&v=4' }}/>
+                </MapMarkerContainer>
+              </MapMarker>
+            ))}
           </Map>
+          )}
+
           
         </MapContainer>
       </Container>
