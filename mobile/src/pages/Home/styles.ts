@@ -6,6 +6,10 @@ export const Container = styled.ImageBackground`
   padding: 32px;
 `;
 
+export const Wrapper = styled.ScrollView`
+  flex: 1;
+`;
+
 export const Logo = styled.Image``;
 
 export const Main = styled.View`
@@ -34,8 +38,8 @@ export const Footer = styled.View``;
 
 export const Select = styled.View``;
 
-export const Input = styled.View`
-  height: 60pc;
+export const Input = styled.TextInput`
+  height: 60px;
   background-color: #FFF;
   border-radius: 10px;
   margin-bottom: 8px;

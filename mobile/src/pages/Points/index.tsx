@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { SvgUri } from 'react-native-svg';
 import { StyleSheet, Alert } from 'react-native';
@@ -39,6 +39,11 @@ interface Point {
   longitude: number;
 }
 
+interface Params {
+  uf: string;
+  city: string;
+}
+
 const Points = () => {
   const [items, setItems] = useState<Item[]>([])
   const [points, setPoints] = useState<Point[]>([])
@@ -47,6 +52,9 @@ const Points = () => {
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0,0])
 
   const navigation = useNavigation();
+  const route = useRoute()
+
+  const RouteParams = route.params as Params
 
   useEffect(() => {
     async function loadPosition() {
@@ -76,15 +84,15 @@ const Points = () => {
   useEffect(() => {
     api.get('points', {
       params: {
-        city: 'Campina Grande',
-        uf: 'PB',
-        items: [1]
+        city: RouteParams.city,
+        uf: RouteParams.uf,
+        items: selectedItems
 
       }
     }).then(response => {
       setPoints(response.data)
     })
-  }, [])
+  }, [selectedItems])
 
   function handleNavigateBack() {
     navigation.goBack()
