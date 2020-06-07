@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { SvgUri } from 'react-native-svg';
+import { StyleSheet } from 'react-native';
 
 import { 
   Wrapper,
@@ -18,10 +19,28 @@ import {
   MapMarkerImage,
   MapMarkerContainer,
   MapMarkerTitle,
+  ItemTitle,
 } from './styles';
 
+import api from '../../services/api';
+
+interface Item {
+  id: number;
+  title: string;
+  image_url: string;
+}
+
 const Points = () => {
-  const navigation = useNavigation()
+  const [items, setItems] = useState<Item[]>([])
+  const [selectedItems, setSelectedItems] = useState<number[]>([])
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    api.get('/items').then(response => {
+      setItems(response.data)
+    })
+  }, [])
 
   function handleNavigateBack() {
     navigation.goBack()
@@ -29,6 +48,18 @@ const Points = () => {
 
   function handleNavigateToDetail() {
     navigation.navigate('detail')
+  }
+
+  function handleSelectItem(id: number) {
+    const alredySelected = selectedItems.findIndex(item => item === id)
+
+    if (alredySelected >= 0) {
+      const filteredItems = selectedItems.filter(item => item !== id)
+
+      setSelectedItems(filteredItems)
+    } else {
+        setSelectedItems([...selectedItems, id])    
+    }
   }
 
   return (
@@ -75,33 +106,28 @@ const Points = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 20 }}
         >
-          <Item onPress={() => {}}>
-            <SvgUri width={42} height={42} uri="https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-eu01.gitpod.io/uploads/lampadas.svg" />
-          </Item>
-
-          <Item onPress={() => {}}>
-            <SvgUri width={42} height={42} uri="https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-eu01.gitpod.io/uploads/lampadas.svg" />
-          </Item>
-
-          <Item onPress={() => {}}>
-            <SvgUri width={42} height={42} uri="https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-eu01.gitpod.io/uploads/lampadas.svg" />
-          </Item>
-
-          <Item onPress={() => {}}>
-            <SvgUri width={42} height={42} uri="https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-eu01.gitpod.io/uploads/lampadas.svg" />
-          </Item>
-
-          <Item onPress={() => {}}>
-            <SvgUri width={42} height={42} uri="https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-eu01.gitpod.io/uploads/lampadas.svg" />
-          </Item>
-
-          <Item onPress={() => {}}>
-            <SvgUri width={42} height={42} uri="https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-eu01.gitpod.io/uploads/lampadas.svg" />
-          </Item>
+          {items.map(item => (
+            <Item 
+              key={String(item.id)} 
+              style={selectedItems.includes(item.id) ? styles.selectedItem : {}}
+              onPress={() => handleSelectItem(item.id)}
+              activeOpacity={0.65}
+            >
+              <SvgUri width={42} height={42} uri={item.image_url} />
+              <ItemTitle>{item.title}</ItemTitle>
+            </Item>
+          ))}
         </ItemsWrapper>
       </ItemsContainer>
     </Wrapper>
   )
 }
+
+const styles = StyleSheet.create({
+  selectedItem: {
+    borderColor: '#34CB79',
+    borderWidth: 2,
+  }
+})
 
 export default Points;

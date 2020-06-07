@@ -93,10 +93,6 @@ export const Item = styled.TouchableOpacity`
 
   text-align: center;
 `;
-export const SelectedItem = styled.View`
-  border-color: #34CB79;
-  border-width: 2px;
-`;
 
 export const ItemTitle = styled.Text`
   font-family: 'Roboto_400Regular';
