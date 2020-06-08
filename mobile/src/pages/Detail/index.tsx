@@ -28,6 +28,7 @@ interface Params {
 interface Data {
   point: {
     image: string;
+    image_url: string;
     name: string;
     email: string;
     whatsapp: string;
@@ -79,7 +80,7 @@ const Detail = () => {
           <Feather name="arrow-left" color="#34cb79" size={20}/>
         </BackButton>
 
-        <PointImage source={{ uri: 'https://avatars3.githubusercontent.com/u/47665775?s=460&u=e4062bf713af7ec7b12c42ced5efcd3b73584fcb&v=4' }} />
+        <PointImage source={{ uri: data.point.image_url }} />
       
         <PointName>{data.point.name}</PointName>
         <PointItems>

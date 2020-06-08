@@ -34,6 +34,7 @@ interface Item {
 interface Point {
   id: number;
   image: string;
+  image_url: string;
   name: string;
   latitude: number;
   longitude: number;
@@ -144,7 +145,7 @@ const Points = () => {
               >
                 <MapMarkerContainer>
                   <MapMarkerTitle>{point.name}</MapMarkerTitle>
-                  <MapMarkerImage source={{ uri: 'https://avatars3.githubusercontent.com/u/47665775?s=460&u=e4062bf713af7ec7b12c42ced5efcd3b73584fcb&v=4' }}/>
+                  <MapMarkerImage source={{ uri: point.image_url }}/>
                 </MapMarkerContainer>
               </MapMarker>
             ))}

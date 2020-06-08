@@ -58,7 +58,7 @@ class PointsController {
       return res.status(400).json({ message: 'Point not found.' })
     }
 
-    const serializedPoints = {
+    const serializedPoint = {
       ...point,
       image_url: `https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-us02.gitpod.io/uploads/${point.image}`
     }
@@ -68,7 +68,7 @@ class PointsController {
       .where('point_items.point_id', id)
       .select('items.title')
 
-    return res.json({ serializedPoints, items })
+    return res.json({ point: serializedPoint, items })
   }
 
   async index(req: Request, res: Response) {
@@ -86,14 +86,14 @@ class PointsController {
       .distinct()
       .select('points.*')
 
-    const serializedPoints = points.map(point => {
+    const serializedPoint = points.map(point => {
       return {
         ...point,
         image_url: `https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-us02.gitpod.io/uploads/${point.image}`
       }
     })
     
-    return res.json(serializedPoints)
+    return res.json(serializedPoint)
   }
 }
 
