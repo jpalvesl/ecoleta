@@ -17,7 +17,7 @@ class PointsController {
     const trx = await knex.transaction()
 
     const point = {
-      image: 'iamge-fake',
+      image: req.file.filename,
       name,
       email,
       whatsapp,
@@ -31,7 +31,10 @@ class PointsController {
 
     const point_id = insertedIds[0]
 
-    const pointItems = items.map((item_id: number) => ({
+    const pointItems = items
+      .split(',')
+      .map((item: string) => Number(item.trim()))
+      .map((item_id: number) => ({
       item_id,
       point_id,
     }))
@@ -55,12 +58,17 @@ class PointsController {
       return res.status(400).json({ message: 'Point not found.' })
     }
 
+    const serializedPoints = {
+      ...point,
+      image_url: `https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-us02.gitpod.io/uploads/${point.image}`
+    }
+
     const items = await knex('items')
       .join('point_items', 'items.id', '=', 'point_items.item_id')
       .where('point_items.point_id', id)
       .select('items.title')
 
-    return res.json({ point, items })
+    return res.json({ serializedPoints, items })
   }
 
   async index(req: Request, res: Response) {
@@ -78,7 +86,14 @@ class PointsController {
       .distinct()
       .select('points.*')
 
-    return res.json(points)
+    const serializedPoints = points.map(point => {
+      return {
+        ...point,
+        image_url: `https://3333-beeeb93e-7bba-4a92-b5a9-b1f6f1e7b7c9.ws-us02.gitpod.io/uploads/${point.image}`
+      }
+    })
+    
+    return res.json(serializedPoints)
   }
 }
 
