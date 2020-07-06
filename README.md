@@ -43,7 +43,7 @@ Describe your application and what you learning with it. 😃
 
   - Using Git
 ```shell
-  git clone https://github.com/jpalvesl/be-the-hero.git
+  git clone https://github.com/jpalvesl/ecoleta.git
 ```
   - Using Gitpod to run in without download anything   
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/jpalvesl/ecoleta) 
