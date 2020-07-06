@@ -1,5 +1,5 @@
 <h1 align="center">
-  Ecoleta - Web
+  Ecoleta - Mobile
 </h1>
 
 <!-- summary -->
@@ -11,7 +11,7 @@
 
 
 ## :clipboard: Description
-A web application made with ReactJs
+A mobile application made with React Native
 
 ## :rocket: Getting Started
 
@@ -21,6 +21,7 @@ A web application made with ReactJs
 ```shell
   git clone https://github.com/jpalvesl/ecoleta.git
 ```
+
 
 2. Installation
 ```shell
@@ -38,38 +39,33 @@ A web application made with ReactJs
 ## 🧐 What's inside?
 
 ### :building_construction: Technologies
-- [ReactJs](https://pt-br.reactjs.org/)
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.io/)
 - [Typescript](https://www.typescriptlang.org)
-  
+
 
 ### :package: Packages
 - [Axios](https://github.com/axios/axios)
 - [Styled Components](https://github.com/styled-components/styled-components)
-- [React Router Dom](https://github.com/ReactTraining/react-router)
-- [React Icons](https://github.com/react-icons/react-icons)
-- [Leaflet](https://leafletjs.com)
-- [React Dropzone](https://www.dropzonejs.com)
-- [React LeafLet](https://react-leaflet.js.org)
+- [React Navigation](https://reactnavigation.org/)
+- [Expo Mail Composer](https://docs.expo.io/versions/v37.0.0/sdk/mail-composer/)
+- [Expo Font](https://docs.expo.io/versions/v38.0.0/sdk/font/)
+- [Expo Location](https://docs.expo.io/versions/v38.0.0/sdk/location/)
+- [React Native Maps](https://github.com/react-native-community/react-native-maps)
+- [React Native SVG](https://github.com/react-native-community/react-native-svg)
 
 ### A quick look at the top-level directories inside the `./src`.
 
     ./src
      ├── assets
-     ├── components
      ├── pages
      ├── services
-     ├── styles
 
 1.  **`assets`**: all resources used. How icons, images, etc.
 
-2.  **`components`**: each components shared in aplication.
+2.  **`pages`**: each file is a website page.
 
-3.  **`pages`**: each file is a website page.
-   
 4.  **`services`**: connection with api.
-
-5.  **`styles`**: global styles and colors.
-
 
 ---
 
